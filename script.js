@@ -47,3 +47,20 @@ request = {s:"belier", c:"sante"} // this will later be set differently
 
 var out = ""; // container for fetched values
 
+
+function crawl() {
+    for (i=0; i<sources.length; i++) {
+        var url = sources[i].url;
+        console.log("Fetching: " + sources[i].name)
+
+        $.ajax({
+            url: url,
+            async: true // synchronous is deprecated
+        }).done(function(data) {
+            var dataRetrieved = "bla bla bla bla";
+            console.log("Retrieved " + dataRetrieved);
+            out += dataRetrieved + "\n";
+        });
+    }
+    console.log("-----------------\nParsing done, output:\n"+out);
+}
