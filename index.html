@@ -1,7 +1,11 @@
 <html>
+    <head>
+        <title>FLANDIULF</title>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
     <body>
-        <form id="signsForm">
-            <h3>Choisissez un signe astrologique</h3>
+        <form id="signsForm" action="" method="GET">
+            <h3>Choisissez un signe astrologique :</h3>
             <select id="select_sign">
                 <option value="balance">Balance</a>
                 <option value="scorpion">Scorpion</a>
@@ -16,6 +20,15 @@
                 <option value="poissons">Poissons</a>
                 <option value="vierge">Vierge</a>
             </select>
+            <h3>Choisissez une cat&eacute;gorie :</h3>
+            <select id="select_cat">
+                <option value="sante">Sant&eacute;</a>
+                <option value="travail">Travail</a>
+                <option value="argent">Argent</a>
+                <option value="amour">Amour</a>
+            </select>
+            <!-- <input type="submit" onclick="sendForm()" value="Envoyer"> -->
+            <button id="formButton" type="button" onclick="sendForm()">Envoyer</button>
         </form>
     </body>
 </html>
