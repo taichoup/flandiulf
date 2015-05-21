@@ -1,0 +1,2 @@
+Maybe server should fetch the content once a day. 
+This way users wouldn't start a crawler every time they make a request.
