@@ -71,7 +71,7 @@ usersigns = ["belier", "gemeaux", "balance", "scorpion", "sagittaire", "taureau"
 categories = ["amour", "sante", "travail", "argent"]
 
 with open("astrodump.json", "w") as outfile:
-    response = {site["name"]:{sign:{cat:{} for cat in categories} for sign in usersigns} for site in sources}
+    response = {"data":{site["name"]:{sign:{cat:{} for cat in categories} for sign in usersigns} for site in sources}}
     print response
     for website in sources:
         for sign in usersigns:
@@ -81,7 +81,7 @@ with open("astrodump.json", "w") as outfile:
                     p = HTML.fromstring(urllib.urlopen(website["url"] % sign).read())
                     desc = p.find(website[category]).text.strip()
                     sitename = website["name"]
-                    response[sitename][sign][category] = desc
+                    response["data"][sitename][sign][category] = desc
                 except SyntaxError as e:
                     continue
     json.dump(response, outfile, encoding="utf-8", sort_keys=True, indent=4, separators=(',', ': '))
