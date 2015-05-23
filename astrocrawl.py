@@ -32,7 +32,7 @@ sources = [{
     "sante":".//div[@class='layout_main']/table/tbody/tr[12]/",
     "travail":".//div[@class='layout_main']/table/tbody/tr[15]/"
     }, {
-    "name":"horoscope.fr",
+    "name":"horoscope_fr",
     "charset":"utf-8",
     "url":"http://www.horoscope.fr/horoscopes/horoscope_%s.html",
     "amour":".//div[@id='horo-jour-amour']/div/p[2]",
@@ -40,7 +40,7 @@ sources = [{
     "sante":".//div[@id='horo-jour-bienetre']/div[1]/div[2]/p",
     "travail":".//div[@id='horo-jour-travail']/div[1]/div[2]/p"
     }, {
-    "name":"le parisien",
+    "name":"le_parisien",
     "charset":"utf-8",
     "url":"http://astrologie.leparisien.fr/astrologie/zodiaque/%s.html",
     "amour":".//article[@class='np-article-predictionvipsign']/section/div/article/p[1]",
@@ -48,7 +48,7 @@ sources = [{
     "sante":".//article[@class='np-article-predictionvipsign']/section/div/article/p[3]",
     "travail":".//article[@class='np-article-predictionvipsign']/section/div/article/p[2]"
     }, {
-    "name":"elle.fr",
+    "name":"elle_fr",
     "charset":"utf-8",
     "url":"http://www.elle.fr/Astro/Horoscope/Quotidien/%s",
     "amour":".//article[@id='text']/p[1]",
@@ -56,7 +56,7 @@ sources = [{
     "sante":".//article[@id='text']/p[3]",
     "travail":".//article[@id='text']/p[4]"
     }, {
-    "name": "astrowi.com",
+    "name": "astrowi_com",
     "charset":"utf-8",
     "url":"http://www.astrowi.com/horoscope-astrologie-jour-%s",
     "amour":".//div[@id='zParaArticle']/p[1]",
@@ -71,9 +71,9 @@ usersigns = ["belier", "gemeaux", "balance", "scorpion", "sagittaire", "taureau"
 categories = ["amour", "sante", "travail", "argent"]
 
 with open("astrodump.json", "w") as outfile:
-    response = {"data":{site["name"]:{sign:{cat:{} for cat in categories} for sign in usersigns} for site in sources}}
+    response = {site["name"]:{sign:{cat:{} for cat in categories} for sign in usersigns} for site in sources}
     print response
-    for website in sources:
+    for website in sources[:1]:
         for sign in usersigns:
             for category in categories:
                 try:
@@ -81,7 +81,7 @@ with open("astrodump.json", "w") as outfile:
                     p = HTML.fromstring(urllib.urlopen(website["url"] % sign).read())
                     desc = p.find(website[category]).text.strip()
                     sitename = website["name"]
-                    response["data"][sitename][sign][category] = desc
+                    response[sitename][sign][category] = desc
                 except SyntaxError as e:
                     continue
     json.dump(response, outfile, encoding="utf-8", sort_keys=True, indent=4, separators=(',', ': '))
