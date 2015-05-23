@@ -70,18 +70,32 @@ usersigns = ["belier", "gemeaux", "balance", "scorpion", "sagittaire", "taureau"
 
 categories = ["amour", "sante", "travail", "argent"]
 
-with open("astrodump.json", "w") as outfile:
-    response = {site["name"]:{sign:{cat:{} for cat in categories} for sign in usersigns} for site in sources}
-    print response
-    for website in sources[:1]:
+# with open("astrodump.json", "w") as outfile:
+#     response = {site["name"]:{sign:{cat:{} for cat in categories} for sign in usersigns} for site in sources}
+#     print response
+#     for website in sources:
+#         for sign in usersigns:
+#             for category in categories:
+#                 try:
+#                     print u"Recherche d'horoscope sur %s pour %s/%s" % (website["name"], sign, category)
+#                     p = HTML.fromstring(urllib.urlopen(website["url"] % sign).read())
+#                     desc = p.find(website[category]).text.strip()
+#                     sitename = website["name"]
+#                     response[sitename][sign][category] = desc
+#                 except SyntaxError as e:
+#                     continue
+#     json.dump(response, outfile, encoding="utf-8", sort_keys=True, indent=4, separators=(',', ': '))
+
+with open("astrodump2.json", "w") as outfile:
+    response = []
+    for website in sources:
         for sign in usersigns:
             for category in categories:
                 try:
                     print u"Recherche d'horoscope sur %s pour %s/%s" % (website["name"], sign, category)
                     p = HTML.fromstring(urllib.urlopen(website["url"] % sign).read())
                     desc = p.find(website[category]).text.strip()
-                    sitename = website["name"]
-                    response[sitename][sign][category] = desc
+                    response.append({"sign":sign, "source":website["name"], "category":category, "content":desc})
                 except SyntaxError as e:
                     continue
     json.dump(response, outfile, encoding="utf-8", sort_keys=True, indent=4, separators=(',', ': '))
