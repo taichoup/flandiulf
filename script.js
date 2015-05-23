@@ -18,18 +18,23 @@ request = {s:"belier", c:"sante"} // this will later be set differently
 
 $(document).ready(function() {
     $("button").click(function() {
-        var jqxhr = $.getJSON("astrodump.json", function(responseTxt, statusTxt, xhr) {
+        var jqxhr = $.getJSON("astrodump2.json", function(responseTxt, statusTxt, xhr) {
             //blop
         })
             .done(function(data) {
-                alert("External content loaded successfully!");
+                // alert("External content loaded successfully!");
                 var items = [];
-                $.each(data, function(key, val) {
-                    items.push( "<li id='" + key + "'>" + val + "</li>" );
+                $.each(data, function(i) {
+                    if (data[i].sign === request.s && data[i].category === request.c) {
+                        console.log("match");
+                        items.push( "<tr><td>" + data[i].source + "</td><td>" + data[i].content + "</td></tr>" );
+                    }
+                    else {
+                        continue
+                    }
                 });
-                console.log(items);
-                $( "<ul/>", {
-                    "class": "my-new-list",
+                $( "<table/>", {
+                    "class": "table",
                     html: items.join( "" )
                 }).appendTo( "body" );
             })
