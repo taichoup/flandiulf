@@ -23,9 +23,9 @@ $(document).ready(function() {
             //blop
         })
             .done(function(data) {
-                alert("External content loaded successfully!");
+                // alert("External content loaded successfully!");
                 var items = [];
-                // resetTable();
+                resetTable();
                 $.each(data, function(i) {
                     var sign = data[i].sign;
                     var cat = data[i].category;
