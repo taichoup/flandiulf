@@ -23,14 +23,18 @@ $(document).ready(function() {
             //blop
         })
             .done(function(data) {
-                // alert("External content loaded successfully!");
+                //alert("External content loaded successfully!");
                 var items = [];
+                var listOfWords = [];
                 resetTable();
                 $.each(data, function(i) {
                     var sign = data[i].sign;
                     var cat = data[i].category;
                     if (sign === request.s && cat === request.c) {
                         items.push( "<tr><td>" + data[i].source + "</td><td>" + data[i].content + "</td></tr>" );
+                        var content = data[i].content.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                        var content = content.replace(/\s{2,}/g," ");
+                        listOfWords.push(content.split(" "));
                     }
                 });
                 $( "<table/>", {
@@ -38,6 +42,8 @@ $(document).ready(function() {
                     "id": "results-table",
                     html: items.join( "" )
                 }).appendTo( "body" );
+                var listOfWords2 = listOfWords.concat.apply(listOfWords, listOfWords2);
+                console.log(listOfWords2);
             })
             .fail(function() {
                 alert("JQXHR ERROR.");
