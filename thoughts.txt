@@ -1,2 +1,4 @@
-Maybe server should fetch the content once a day. 
+Maybe server should fetch the content once a day. --> YES
 This way users wouldn't start a crawler every time they make a request.
+
+Maybe I could try rating the different sources every day (accuracy) and make a chart
