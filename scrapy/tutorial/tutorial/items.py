@@ -9,3 +9,10 @@ class TutorialItem(Item):
     # define the fields for your item here like:
     # name = Field()
     pass
+
+import scrapy
+
+class DmozItem(scrapy.Item):
+    title = scrapy.Field()
+    link = scrapy.Field()
+    desc = scrapy.Field()
