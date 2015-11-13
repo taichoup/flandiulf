@@ -33,7 +33,7 @@ source2 = WebSource("fr", "horoscope.fr", "http://www.horoscope.fr/horoscopes/ho
 source4 = WebSource("fr", "Elle.fr", "http://www.elle.fr/Astro/Horoscope/Quotidien/%s", ".//article[@id='text']/p[1]", ".//article[@id='text']/p[2]", ".//article[@id='text']/p[3]", ".//div[@id='zParaArticle']/p[4]")
 # source5 = WebSource("fr", "Astrowi.com", "http://www.astrowi.com/horoscope-astrologie-jour-%s", ".//div[@id='zParaArticle']/p[1]", ".//div[@id='zParaArticle']/p[2]", ".//div[@id='zParaArticle']/p[3]", ".//div[@id='zParaArticle']/p[4]")
 
-sources = [source1, source2, source3, source4, source5]
+sources = [source1, source2, source4]
 
 sources2 = [i.__dict__ for i in sources]
 
