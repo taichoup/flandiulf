@@ -7,8 +7,13 @@
 
 import scrapy
 
-
 class AstrocrawlItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    lang = scrapy.Field()
+    name = scrapy.Field()
+    url = scrapy.Field()
+    love = scrapy.Field()
+    money = scrapy.Field()
+    health = scrapy.Field()
+    work = scrapy.Field()
+    last_updated = scrapy.Field(serializer=str)
