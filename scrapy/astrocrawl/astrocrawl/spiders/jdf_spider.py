@@ -1,4 +1,5 @@
 import scrapy
+import time
 
 from astrocrawl.items import AstrocrawlItem
 
@@ -22,8 +23,12 @@ class JDFSpider(scrapy.Spider):
 
     def parse(self, response):
         item = AstrocrawlItem()
-        item["love"] = response.xpath("//*[@id='papierlarge']/div[3]/table[1]/tbody/tr[6]/td/text()").extract()
-        item["money"] = response.xpath("//*[@id='papierlarge']/div[3]/table[1]/tbody/tr[9]/td/text()").extract()
-        item["health"] = response.xpath("//*[@id='papierlarge']/div[3]/table[1]/tbody/tr[12]/td/text()").extract()
-        item["work"] = response.xpath("//*[@id='papierlarge']/div[3]/table[1]/tbody/tr[15]/td/text()").extract()
+        item["love"] = response.xpath("//*[@id='adsLayout']/div[2]/div[1]/div/main/p[1]/text()").extract()[0].strip()
+        item["money"] = response.xpath("//*[@id='adsLayout']/div[2]/div[1]/div/main/p[2]/text()").extract()[0].strip()
+        item["health"] = response.xpath("//*[@id='adsLayout']/div[2]/div[1]/div/main/p[3]/text()").extract()[0].strip()
+        item["work"] = response.xpath("//*[@id='adsLayout']/div[2]/div[1]/div/main/p[4]/text()").extract()[0].strip()
+        item["source"] = "Le Journal Des Femmes"
+        item["timestamp"] = time.ctime()
         yield item
+
+
