@@ -31,7 +31,7 @@ $(document).ready(function() {
                     var sign = data[i].sign;
                     var cat = data[i].category;
                     if (sign === request.s && cat === request.c) {
-                        items.push( "<tr><td>" + data[i].source + "</td><td>" + data[i].content + "</td></tr>" );
+                        items.push( "<tr><td>" + data[i].source + "</td><td>" + data[i].timestamp + "</td><td>" + data[i].content + "</td></tr>" );
                         var content = data[i].content.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"");
                         var content = content.replace(/\s{2,}/g," ");
                         listOfWords.push(content.split(" "));
