@@ -37,8 +37,14 @@
             </select>
             <button id="formButton" type="button">Envoyer</button>
         </form>
-        <p></p>
+
+        <div id="table-wrapper"></div>
+
         <button id="cloud_button" onclick="go_cloud();" disabled>Generate tag cloud</button>
+
+        <div id="cloud-wrapper"></div>
+
+
 
     </body>
     <script>
@@ -61,7 +67,7 @@
 
     function draw(words) {
         console.log("starting cloud rendering...")
-        d3.select("body").append("svg")
+        d3.select("#cloud-wrapper").append("svg")
             .attr("width", 850)
             .attr("height", 350)
             .attr("class", "wordcloud")

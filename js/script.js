@@ -290,7 +290,7 @@ function(i) {
                         "id": "results-table",
                         html: items.join( "" )
                     }
-                ).appendTo( "body" );
+                ).appendTo( "#table-wrapper" );
 
                 document.getElementById("cloud_button").disabled = false
 
