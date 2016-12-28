@@ -1,6 +1,230 @@
 
 var request = {};
 
+stopwords = [
+    "ai",
+    "aie",
+    "aient",
+    "aies",
+    "ait",
+    "alors",
+    "as",
+    "au",
+    "aucuns",
+    "aura",
+    "aurai",
+    "auraient",
+    "aurais",
+    "aurait",
+    "auras",
+    "aurez",
+    "auriez",
+    "aurions",
+    "aurons",
+    "auront",
+    "aussi",
+    "autre",
+    "aux",
+    "avaient",
+    "avais",
+    "avait",
+    "avant",
+    "avec",
+    "avez",
+    "aviez",
+    "avions",
+    "avoir",
+    "avons",
+    "ayant",
+    "ayante",
+    "ayantes",
+    "ayants",
+    "ayez",
+    "ayons",
+    "c",
+    "car",
+    "ce",
+    "cela",
+    "ces",
+    "ceux",
+    "chaque",
+    "ci",
+    "comme",
+    "comment",
+    "d",
+    "dans",
+    "de",
+    "dedans",
+    "dehors",
+    "depuis",
+    "des",
+    "devrait",
+    "doit",
+    "donc",
+    "dos",
+    "du",
+    "début",
+    "elle",
+    "elles",
+    "en",
+    "encore",
+    "es",
+    "essai",
+    "est",
+    "et",
+    "eu",
+    "eue",
+    "eues",
+    "eurent",
+    "eus",
+    "eusse",
+    "eussent",
+    "eusses",
+    "eussiez",
+    "eussions",
+    "eut",
+    "eux",
+    "eûmes",
+    "eût",
+    "eûtes",
+    "fait",
+    "faites",
+    "fois",
+    "font",
+    "furent",
+    "fus",
+    "fusse",
+    "fussent",
+    "fusses",
+    "fussiez",
+    "fussions",
+    "fut",
+    "fûmes",
+    "fût",
+    "fûtes",
+    "hors",
+    "ici",
+    "il",
+    "ils",
+    "j",
+    "je",
+    "juste",
+    "l",
+    "la",
+    "le",
+    "les",
+    "leur",
+    "lui",
+    "là",
+    "m",
+    "ma",
+    "maintenant",
+    "mais",
+    "me",
+    "mes",
+    "mine",
+    "moi",
+    "moins",
+    "mon",
+    "mot",
+    "même",
+    "n",
+    "ne",
+    "ni",
+    "nommés",
+    "nos",
+    "notre",
+    "nous",
+    "on",
+    "ont",
+    "ou",
+    "où",
+    "par",
+    "parce",
+    "pas",
+    "peu",
+    "peut",
+    "plupart",
+    "pour",
+    "pourquoi",
+    "qu",
+    "quand",
+    "que",
+    "quel",
+    "quelle",
+    "quelles",
+    "quels",
+    "qui",
+    "s",
+    "sa",
+    "sans",
+    "se",
+    "sera",
+    "serai",
+    "seraient",
+    "serais",
+    "serait",
+    "seras",
+    "serez",
+    "seriez",
+    "serions",
+    "serons",
+    "seront",
+    "ses",
+    "seulement",
+    "si",
+    "sien",
+    "soient",
+    "sois",
+    "soit",
+    "sommes",
+    "son",
+    "sont",
+    "sous",
+    "soyez",
+    "soyons",
+    "suis",
+    "sur",
+    "t",
+    "ta",
+    "tandis",
+    "te",
+    "tellement",
+    "tels",
+    "tes",
+    "toi",
+    "ton",
+    "tous",
+    "tout",
+    "trop",
+    "très",
+    "tu",
+    "un",
+    "une",
+    "voient",
+    "vont",
+    "vos",
+    "votre",
+    "vous",
+    "y",
+    "à",
+    "ça",
+    "étaient",
+    "étais",
+    "était",
+    "étant",
+    "étante",
+    "étantes",
+    "étants",
+    "étiez",
+    "étions",
+    "été",
+    "étée",
+    "étées",
+    "étés",
+    "être"
+]
+
 function sendForm(form) {
     var sign = document.getElementById("select_sign").value;
     var category = document.getElementById("select_cat").value;
@@ -17,9 +241,10 @@ function resetTable() {
 
 
 $(document).ready(function() {
-    $("button").click(function() {
+    $("#formButton").click(function() {
         sendForm();
-        var jqxhr = $.getJSON("../astrodump2.json", function() {
+        var jqxhr = $.getJSON("../astrodump2.json",
+function() {
             //blop
         })
             .done(function(data) {
@@ -27,26 +252,54 @@ $(document).ready(function() {
                 var items = [];
                 var listOfWords = [];
                 resetTable();
-                $.each(data, function(i) {
+                $.each(data,
+function(i) {
                     var sign = data[i].sign;
                     var cat = data[i].category;
                     if (sign === request.s && cat === request.c) {
                         items.push( "<tr><td>" + data[i].source + "</td><td>" + data[i].timestamp + "</td><td>" + data[i].content + "</td></tr>" );
                         var content = data[i].content.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"");
                         var content = content.replace(/\s{2,}/g," ");
-                        listOfWords.push(content.split(" "));
+                        listOfWords.push.apply(listOfWords, content.split(" "));
                     }
                 });
-                $( "<table/>", {
-                    "class": "table",
-                    "id": "results-table",
-                    html: items.join( "" )
-                }).appendTo( "body" );
-                var listOfWords2 = listOfWords.concat.apply(listOfWords, listOfWords2);
-                console.log(listOfWords2);
+
+                listOfWords = listOfWords.map(function(w) {
+                    return w.toLowerCase();
+                });
+
+                function remove_stopwords(w) {
+                    return stopwords.indexOf(w) === -1;
+                }
+
+                listOfWords.filter(remove_stopwords);
+
+                LOW = listOfWords.map(function(w) {
+                    return {text: w, size: 10 + Math.random() * 60};
+                })
+
+                console.log(LOW);
+
+                $( "<table/>",
+                    {
+                        "class": "table",
+                        "id": "results-table",
+                        html: items.join( "" )
+                    }
+                ).appendTo( "body" );
+
+                // var cloud_frame = document.createElement("iframe");
+                // cloud_frame.setAttribute("src", "cloud.html");
+                // cloud_frame.style.width = "640px";
+                // cloud_frame.style.height = "480px";
+                // document.body.appendChild(cloud_frame);
+
+
+
             })
             .fail(function() {
                 alert("JQXHR ERROR.");
             });
     });
+
 });
