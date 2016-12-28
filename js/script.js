@@ -237,18 +237,22 @@ function sendForm(form) {
 
 function resetTable() {
     $("#results-table").remove();
+    $(".wordcloud").remove();
 }
 
 
 $(document).ready(function() {
+
+    // SHIT THAT HAPPENS WHEN BUTTON IS CLICKED
     $("#formButton").click(function() {
+
         sendForm();
+
         var jqxhr = $.getJSON("../astrodump2.json",
+
 function() {
-            //blop
         })
             .done(function(data) {
-                //alert("External content loaded successfully!");
                 var items = [];
                 var listOfWords = [];
                 resetTable();
@@ -288,11 +292,7 @@ function(i) {
                     }
                 ).appendTo( "body" );
 
-                // var cloud_frame = document.createElement("iframe");
-                // cloud_frame.setAttribute("src", "cloud.html");
-                // cloud_frame.style.width = "640px";
-                // cloud_frame.style.height = "480px";
-                // document.body.appendChild(cloud_frame);
+                document.getElementById("cloud_button").disabled = false
 
 
 
