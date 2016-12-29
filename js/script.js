@@ -44,7 +44,10 @@ stopwords = [
     "c",
     "car",
     "ce",
+    "cet",
+    "cette",
     "cela",
+    "ceci",
     "ces",
     "ceux",
     "chaque",
@@ -276,13 +279,17 @@ function(i) {
                     return stopwords.indexOf(w) === -1;
                 }
 
-                listOfWords.filter(remove_stopwords);
+                var filtered = listOfWords.filter(remove_stopwords);
 
-                LOW = listOfWords.map(function(w) {
+                LOW = filtered.map(function(w) {
                     return {text: w, size: 10 + Math.random() * 60};
                 })
 
-                console.log(LOW);
+                LOW2 = listOfWords;
+
+                // console.log(LOW);
+
+                console.log(listOfWords)
 
                 $( "<table/>",
                     {
