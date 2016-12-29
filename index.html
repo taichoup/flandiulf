@@ -57,7 +57,7 @@
     function go_cloud() {
         console.log("starting cloud calculation...");
         console.log(LOW);
-        d3.layout.cloud().size([800, 300])
+        d3.layout.cloud().size([1050, 650])
         .words(LOW) // CHANGE HERE ?
         .rotate(0)
         .fontSize(function(d) {return d.size; })
@@ -68,12 +68,12 @@
     function draw(words) {
         console.log("starting cloud rendering...")
         d3.select("#cloud-wrapper").append("svg")
-            .attr("width", 850)
-            .attr("height", 350)
+            .attr("width", 1200)
+            .attr("height", 700)
             .attr("class", "wordcloud")
             .append("g")
             // without the transform words would get cutoff to the left and top, they would appear outside of the SVG area
-            .attr("transform", "translate(320, 200)")
+            .attr("transform", "translate(500, 350)")
             .selectAll("text")
             .data(words)
             .enter().append("text")

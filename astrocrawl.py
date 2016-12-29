@@ -8,7 +8,9 @@ spiders = [
     "jdf",
     "hfr",
     "mhdj",
-    "paris"
+    "paris",
+    "marieclaire",
+    "idealvoyance"
     ]
 
 # delete json exports first because scrapy can't do it on its own
