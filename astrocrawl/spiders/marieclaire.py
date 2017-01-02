@@ -24,7 +24,7 @@ class MarieClaireSpider(scrapy.Spider):
         item = AstrocrawlItem()
         item["source"] = "Marie Claire"
         item["timestamp"] = time.ctime()
-        item["sign"] = response.url[60:].lower()
+        item["sign"] = response.url[60:-1].lower()
         item["love"] = response.css(".Article-textContainer p")[0].extract().split(">")[1].split("<")[0].strip()
         item["money"] = ""
         item["health"] = ""

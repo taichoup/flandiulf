@@ -231,10 +231,8 @@ stopwords = [
 function sendForm(form) {
     var sign = document.getElementById("select_sign").value;
     var category = document.getElementById("select_cat").value;
-    // alert("Sign is " + sign + " and category is " + category);
     request.s = sign;
     request.c = category;
-    // console.log(request);
     return request;
 }
 
@@ -281,15 +279,23 @@ function(i) {
 
                 var filtered = listOfWords.filter(remove_stopwords);
 
+                var filtered_with_weights = {};
+
+                for (i=0;i<filtered.length;i++) {
+                    if (filtered_with_weights[filtered[i]]) {
+                        filtered_with_weights[filtered[i]] += 1;
+                    }
+                    else {filtered_with_weights[filtered[i]] = 1;}
+                }
+
+                console.log(filtered_with_weights);
+
                 LOW = filtered.map(function(w) {
-                    return {text: w, size: 10 + Math.random() * 60};
+                    // return {text: w, size: 10 + Math.random() * 60}; // JNEED TO CHANGE THIS, MAKE IT AN INCREMENT LOOP OR FUNCTION !!!!
+                    return {text: w, size: 10 + filtered_with_weights[w] * 60}; // JNEED TO CHANGE THIS, MAKE IT AN INCREMENT LOOP OR FUNCTION !!!!
                 })
+                // [{text: "hello", size = 1}, {text: "world", size = 1}]
 
-                LOW2 = listOfWords;
-
-                // console.log(LOW);
-
-                console.log(listOfWords)
 
                 $( "<table/>",
                     {
