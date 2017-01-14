@@ -6,3 +6,5 @@ Maybe I could try rating the different sources every day (accuracy) and make a c
 faire un crawl timestamp et l'ajouter à la page (faciliterait aussi pas mal le debug)
 
 conserver un historique (et vérfier si certains horoscopes sont réutilisés)
+
+I think the reason why it's not working on ubuntu (here and Digital Ocean) is the version of Scrapy that is not the same
