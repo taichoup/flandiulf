@@ -1,0 +1,6 @@
+PROBLEMS
+
+- Looks like the program astrocrawl.py needs an out folder and some specific json files in it. Maybe that could be sorted out automatically.
+
+- not sure how to build and use the requirements.txt file. I feel like I should
+version it, but then the pip I use is in the env....
