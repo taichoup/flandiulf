@@ -17,6 +17,9 @@ ROADMAP
 
 - Need to rewrite all to python3
 - Need to properly package everything into an env with portable dependency specs (déjà commencé)
+    - There is an unversioned local env on my work machine with scrapy installed
+    - https://pip.pypa.io/en/latest/user_guide/#requirements-files
+    - https://tox.readthedocs.io/en/latest/
 - Neet to work more on the tag cloud:
     - better display
     - bigrams
