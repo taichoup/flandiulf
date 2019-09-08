@@ -260,11 +260,17 @@ function() {
                 $.each(data,
 function(i) {
                     var sign = data[i].sign;
+
                     var cat = data[i].category;
+
                     if (sign === request.s && cat === request.c) {
+                        
                         items.push( "<tr><td>" + data[i].source + "</td><td>" + data[i].timestamp + "</td><td>" + data[i].content + "</td></tr>" );
+
                         var content = data[i].content.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                        
                         var content = content.replace(/\s{2,}/g," ");
+                        
                         listOfWords.push.apply(listOfWords, content.split(" "));
                     }
                 });
@@ -282,18 +288,23 @@ function(i) {
                 var filtered_with_weights = {};
 
                 for (i=0;i<filtered.length;i++) {
+
                     if (filtered_with_weights[filtered[i]]) {
+
                         filtered_with_weights[filtered[i]] += 1;
                     }
+
                     else {filtered_with_weights[filtered[i]] = 1;}
                 }
 
-                console.log(filtered_with_weights);
+                // console.log(filtered_with_weights);
 
                 LOW = filtered.map(function(w) {
-                    // return {text: w, size: 10 + Math.random() * 60}; // JNEED TO CHANGE THIS, MAKE IT AN INCREMENT LOOP OR FUNCTION !!!!
+
                     return {text: w, size: 10 + filtered_with_weights[w] * 60}; // JNEED TO CHANGE THIS, MAKE IT AN INCREMENT LOOP OR FUNCTION !!!!
+                
                 })
+                
                 // [{text: "hello", size = 1}, {text: "world", size = 1}]
 
 
@@ -306,8 +317,6 @@ function(i) {
                 ).appendTo( "#table-wrapper" );
 
                 document.getElementById("cloud_button").disabled = false
-
-
 
             })
             .fail(function() {

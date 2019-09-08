@@ -2,8 +2,8 @@
 
 import os, codecs, json, shutil
 
-# JSON_PATH_STRING = "out/"
-JSON_PATH_STRING = "out_tests/"
+JSON_PATH_STRING = "out/"
+# JSON_PATH_STRING = "out_tests/"
 
 spiders = [
     "asia",
@@ -17,8 +17,8 @@ spiders = [
     ]
 
 # delete json exports first because scrapy can't do it on its own
-# if os.path.exists("out/"):
-#     shutil.rmtree("out/")
+if os.path.exists("out/"):
+    shutil.rmtree("out/")
 
 
 def scrape_and_populate_jsons():
@@ -68,6 +68,6 @@ def aggregate_for_front_end(p):
 
 
 
-# scrape_and_populate_jsons() # not needed in tests mode
+scrape_and_populate_jsons() # not needed in tests mode
 
 aggregate_for_front_end(JSON_PATH_STRING)
