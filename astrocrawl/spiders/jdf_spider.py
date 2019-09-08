@@ -24,7 +24,9 @@ class JDFSpider(scrapy.Spider):
         item = AstrocrawlItem()
         item["source"] = "Le Journal Des Femmes"
         item["timestamp"] = time.ctime()
-        item["sign"] = response.url[65:-6].lower()
+        # item["sign"] = response.url[65:-6].lower()
+        # item["sign"] = response.url[59:-6].lower()
+        item["sign"] = response.url[51:-6].lower()
         item["love"] = response.xpath("//*[@id='adsLayout']/div[2]/div[1]/div/main/p[1]/text()").extract()[0].strip()
         item["money"] = response.xpath("//*[@id='adsLayout']/div[2]/div[1]/div/main/p[2]/text()").extract()[0].strip()
         item["health"] = response.xpath("//*[@id='adsLayout']/div[2]/div[1]/div/main/p[3]/text()").extract()[0].strip()

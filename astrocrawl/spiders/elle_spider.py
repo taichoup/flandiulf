@@ -24,7 +24,7 @@ class ElleSpider(scrapy.Spider):
         item = AstrocrawlItem()
         item["source"] = "Elle"
         item["timestamp"] = time.ctime()
-        item["sign"] = response.url[45:].lower()
+        item["sign"] = response.url[46:].lower()
         item["love"] = response.css('div.zone-resultat>p::text').extract()[0]
         item["money"] = response.css('div.zone-resultat>p::text').extract()[1]
         item["health"] = response.css('div.zone-resultat>p::text').extract()[2]

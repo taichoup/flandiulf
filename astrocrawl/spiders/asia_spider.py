@@ -24,7 +24,7 @@ class AsiaSpider(scrapy.Spider):
         item = AstrocrawlItem()
         item["source"] = "Asiaflash"
         item["timestamp"] = time.ctime()
-        item["sign"] = response.url[45:-5].lower()
+        item["sign"] = response.url[46:-5].lower()
         item["love"] = response.css("body > div.af_section_container > article > div.af_rubrique > p:nth-child(1)::text").extract()[0]
         item["money"] = response.css("body > div.af_section_container > article > div.af_rubrique > p:nth-child(2)::text").extract()[0]
         item["health"] = response.css("body > div.af_section_container > article > div.af_rubrique > p:nth-child(3)::text").extract()[0]
