@@ -7,6 +7,7 @@
 ### Testing
 
 The folder `out_tests` contains a set of JSON files that can be used for tests without needing to run the spiders.
+To use those files, change the path of the `JSON_PATH_STRING` variable in `astrocrawl.py`
 
 
 ### Dependency management
