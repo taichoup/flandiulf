@@ -9,79 +9,109 @@
         <script type="text/javascript" src="js/script.js"></script>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <style>
+            form {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                width: 500px;
+                margin: 20px auto;
+            }
+
+            button {
+                margin: 20px auto;
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 40px;
+                margin-top: 40px;
+            }
+
+            #table-wrapper {
+                margin: 20px;
+            }
+        </style>
     </head>
     <body>
         <h1>Bienvenue sur Flandiulf, une expérience méta-astrologique.</h1>
+        
         <form id="signsForm" action="" method="GET">
-            <h3>Choisissez un signe astrologique :</h3>
-            <select id="select_sign">
-                <option value="balance">Balance</a>
-                <option value="scorpion">Scorpion</a>
-                <option value="gemeaux">G&eacute;meaux</a>
-                <option value="verseau">Verseau</a>
-                <option value="belier">B&eacute;lier</a>
-                <option value="taureau">Taureau</a>
-                <option value="lion">Lion</a>
-                <option value="cancer">Cancer</a>
-                <option value="sagittaire">Sagittaire</a>
-                <option value="capricorne">Capricorne</a>
-                <option value="poissons">Poissons</a>
-                <option value="vierge">Vierge</a>
-            </select>
-            <h3>Choisissez une cat&eacute;gorie :</h3>
-            <select id="select_cat">
-                <option value="sante">Sant&eacute;</a>
-                <option value="travail">Travail</a>
-                <option value="argent">Argent</a>
-                <option value="amour">Amour</a>
-            </select>
-            <button id="formButton" type="button">Envoyer</button>
+
+            <div class="form-group row align-items-center">    
+                <label>Signe astrologique :</label>
+                    <select id="select_sign" class="form-control">
+                        <option value="balance">Balance</a>
+                            <option value="scorpion">Scorpion</a>
+                                <option value="gemeaux">G&eacute;meaux</a>
+                                    <option value="verseau">Verseau</a>
+                                        <option value="belier">B&eacute;lier</a>
+                                            <option value="taureau">Taureau</a>
+                                                <option value="lion">Lion</a>
+                                                    <option value="cancer">Cancer</a>
+                                                        <option value="sagittaire">Sagittaire</a>
+                                                            <option value="capricorne">Capricorne</a>
+                                                                <option value="poissons">Poissons</a>
+                                                                    <option value="vierge">Vierge</a>
+                    </select>
+            </div>
+
+            <div class="form-group row align-items-center">
+            
+                <label>Cat&eacute;gorie :</label>
+                    <select id="select_cat" class="form-control">
+                        <option value="sante">Sant&eacute;</a>
+                        <option value="travail">Travail</a>
+                        <option value="argent">Argent</a>
+                        <option value="amour">Amour</a>
+                    </select>
+
+                <button id="formButton" type="button" class="btn btn-success">Envoyer</button>
+
+            </div>
         </form>
-
+                    
         <div id="table-wrapper"></div>
-
-        <button id="cloud_button" onclick="go_cloud();" disabled>Generate tag cloud</button>
-
+        
+        <button id="cloud_button" onclick="go_cloud();" style="display:none" class="btn btn-info">Generate tag cloud</button>
+        
         <div id="cloud-wrapper"></div>
-
-
-
+        
     </body>
     <script>
+                    
+        var color = d3.scale.category20();
+        
+        function go_cloud() {
+            d3.layout.cloud().size([1050, 650])
+            .words(LOW)
+            // .rotate(0)
+            .rotate(function() { return ~~(Math.random() * 2) * 90; })
+            .font("Impact")
+            .fontSize(function(d) {return d.size; })
+            .on("end", draw)
+            .start();
+        }
 
-    var color = d3.scale.category20();
-
-    function go_cloud() {
-        d3.layout.cloud().size([1050, 650])
-        .words(LOW)
-        // .rotate(0)
-        .rotate(function() { return ~~(Math.random() * 2) * 90; })
-        .font("Impact")
-        .fontSize(function(d) {return d.size; })
-        .on("end", draw)
-        .start();
-    }
-
-    function draw(words) {
-        d3.select("#cloud-wrapper").append("svg")
-            .attr("width", 1200)
-            .attr("height", 700)
-            .attr("class", "wordcloud")
-            .append("g")
-            // without the transform words would get cutoff to the left and top, they would appear outside of the SVG area
-            .attr("transform", "translate(500, 350)")
-            .selectAll("text")
-            .data(words)
-            .enter().append("text")
-            .style("font-size", function(d) { return d.size + "px"; })
-            .style("font-family", "Impact")
-            .style("fill", function(d, i) {return color(i); })
-            .attr("transform", function(d) {
-                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-            })
-            .text(function(d) { return d.text; });
-    }
-
+        function draw(words) {
+            d3.select("#cloud-wrapper").append("svg")
+                .attr("width", 1200)
+                .attr("height", 700)
+                .attr("class", "wordcloud")
+                .append("g")
+                // without the transform words would get cutoff to the left and top, they would appear outside of the SVG area
+                .attr("transform", "translate(500, 350)")
+                .selectAll("text")
+                .data(words)
+                .enter().append("text")
+                .style("font-size", function(d) { return d.size + "px"; })
+                .style("font-family", "Impact")
+                .style("fill", function(d, i) {return color(i); })
+                .attr("transform", function(d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function(d) { return d.text; });
+        }
     </script>
 
 </html>
